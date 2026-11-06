@@ -6,14 +6,14 @@ from grokkingexperiments.utils import plot_metrics
 
 import matplotlib.pyplot as plt
 
-def main(n, op, split,embed_dim, hidden_dim, epochs):
+def main(config):
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
     # Create the model
-    model = GrokkingModel(n=n, embed_dimension=embed_dim, hidden_dimension=hidden_dim).to(device) 
-    
+    model = GrokkingModel(n=config.train.n, embed_dimension=config.model.embed_dim, hidden_dimension=config.model.hidden_dim).to(device) 
+
     # Get the data splits
-    x_train, y_train, x_test, y_test = generate_train_test_data(n, op, split)
+    x_train, y_train, x_test, y_test = generate_train_test_data(config.train.n, config.train.op, config.train.split)
     
     # Move data to the same device as the model
     x_train = x_train.to(device)
@@ -22,7 +22,7 @@ def main(n, op, split,embed_dim, hidden_dim, epochs):
     y_test = y_test.to(device)
 
     # Train the model, and store the four training metric histories in `metrics`
-    metrics = train_model(epochs, model, x_train, y_train, x_test, y_test)
+    metrics = train_model(config.train.epochs, model, x_train, y_train, x_test, y_test)
 
     # Unpack the metrics
     training_losses = metrics[0]
