@@ -1,0 +1,10 @@
+[model]
+actv_func = "relu"
+embed_dim = 128
+hidden_dim = 256
+
+[train]
+n = 10
+op = "mod_n"
+split = 0.4
+epochs = 10000
