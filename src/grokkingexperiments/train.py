@@ -1,8 +1,6 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from grokkingexperiments.model import GrokkingModel
-
 
 def calculate_accuracy(logits, true_values):
     # Adapted from:
@@ -10,19 +8,11 @@ def calculate_accuracy(logits, true_values):
     # Posted by alercelik, modified by community. See post 'Timeline' for change history
     # Retrieved 2026-10-30, License - CC BY-SA 4.0
 
-    # Get our predictions
     predictions = logits.argmax(dim=1)
-
-    # (predictions == true_values) returns an array True / False values 
-    # depending if we predicted correctly we then
-    # turn to float and get the average
     return (predictions == true_values).float().mean()
 
 
 def train_model(epochs, model, x_train, y_train, x_test, y_test):
-    # To store metric histories
-    training_losses, test_losses = [], []
-    training_accuracies, test_accuracies = [], []
 
     optimizer  = optim.AdamW(model.parameters(), weight_decay=1)
     loss_func = nn.CrossEntropyLoss()
@@ -44,13 +34,11 @@ def train_model(epochs, model, x_train, y_train, x_test, y_test):
                 train_accuracy = calculate_accuracy(logits, y_train)    # Calculate train accuracy
                 test_accuracy = calculate_accuracy(test_logits, y_test) # Calculate test accuracy
 
-            # Record losses
-            training_losses.append(loss.item())             
-            test_losses.append(test_loss.item())
-
-            # Record accuracy 
-            training_accuracies.append(train_accuracy)
-            test_accuracies.append(test_accuracy)
+            model.epochs.append(i)
+            model.training_losses.append(loss.item())
+            model.test_losses.append(test_loss.item())
+            model.training_accuracies.append(train_accuracy.item())
+            model.test_accuracies.append(test_accuracy.item())
 
 
             # Print information
@@ -59,5 +47,3 @@ def train_model(epochs, model, x_train, y_train, x_test, y_test):
             # Stop training when our model achieves 100% accuracy on the test data
             if test_accuracy == 1.0:
                 break
-    
-    return training_losses, test_losses, training_accuracies, test_accuracies

@@ -1,10 +1,22 @@
+# To do:
+# Ensure these are passed down and used throughout the codebase
+# Fin 
+
+
+
+# Regarding the model 
 [model]
 actv_func = "relu"
 embed_dim = 128
 hidden_dim = 256
 
-[train]
-n = 10
-op = "mod_n"
+# Regarding dataset / task
+[task]
+type = "group"
+name = "Zn"
+n = 64
 split = 0.4
-epochs = 10000
+
+# Regarding training 
+[train]
+epochs = 20_000
