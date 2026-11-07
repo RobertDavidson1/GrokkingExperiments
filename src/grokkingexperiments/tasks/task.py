@@ -6,6 +6,7 @@ class Task:
     def __init__(self, config):
         self.multiplication_table = self.calculate_multiplication_table()
         self.split = config.task.split
+        self.seed = config.settings.seed
 
     def compose(self, x, y):
         raise NotImplementedError
