@@ -3,8 +3,9 @@ from torch.utils.data import random_split
 
 
 class Task:
-    def __init__(self):
+    def __init__(self, config):
         self.multiplication_table = self.calculate_multiplication_table()
+        self.split = config.task.split
 
     def compose(self, x, y):
         raise NotImplementedError
@@ -17,14 +18,16 @@ class Task:
             return table
 
 
-    def generate_train_test_data(self, split):
+    def generate_train_test_data(self):
+
+
         data = torch.zeros((self.order ** 2, 3), dtype=torch.int64)
         for i in range(self.order):
             for j in range(self.order):
                data[(i * self.order) + j] = torch.tensor([i, j, self.multiplication_table[i, j]])
 
-        train_indices, test_indices = random_split(data, [split, 1-split],  generator=torch.Generator().manual_seed(self.seed))
-        
+        train_indices, test_indices = random_split(data, [self.split, 1-self.split],  generator=torch.Generator().manual_seed(self.seed))
+
         train = data[train_indices.indices]
         test = data[test_indices.indices]
 
@@ -38,4 +41,3 @@ class Task:
 
 
 
-        
