@@ -14,4 +14,4 @@ split = 0.4                 # proportion of data to use for training
 
 [settings]
 seed = 1337                 # random seed
-print_progess = true        # whether to print progress every couple epochs
+print_progress = true        # whether to print progress every couple epochs
