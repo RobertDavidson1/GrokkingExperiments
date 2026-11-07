@@ -2,7 +2,7 @@
 import typer
 
 from grokkingexperiments.main import main
-from grokkingexperiments.utils import load_config
+from grokkingexperiments.config import load_config
 
 # Show help message if no arg given
 # https://typer.tiangolo.com/tutorial/commands/#show-the-help-message-if-no-command-is-given
