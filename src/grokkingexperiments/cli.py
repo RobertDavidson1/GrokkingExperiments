@@ -2,7 +2,7 @@
 import typer
 
 from grokkingexperiments.main import main
-from grokkingexperiments.config import load_config
+from grokkingexperiments.config import load_config, print_config
 
 # Show help message if no arg given
 # https://typer.tiangolo.com/tutorial/commands/#show-the-help-message-if-no-command-is-given
@@ -10,9 +10,8 @@ app = typer.Typer(no_args_is_help=True)
 
 @app.command()
 def train(config_path: str = "config.toml"):
-    print("!!! CLI IS WORKING AND CODES ARE RUNNING !!!")
-
     config = load_config(config_path)
+    print_config(config)
     main(config)
 
 
