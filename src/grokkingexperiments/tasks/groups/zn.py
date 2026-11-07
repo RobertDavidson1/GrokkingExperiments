@@ -1,4 +1,4 @@
-from . base import Group
+from ..group import Group
 
 
 # Class for group formed by integers mod n
