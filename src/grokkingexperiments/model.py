@@ -17,7 +17,7 @@ class GrokkingModel(MLP):
         super().__init__(config)
 
     def plot_metrics(self):
-        fig, axs = plt.subplots(2,1, figsize=(15, 5))
+        fig, axs = plt.subplots(2,1, figsize=(8, 5))
 
         # 1. Left Chart: Loss
         axs[0].plot(self.epochs, self.training_losses, c='b', label='train')
