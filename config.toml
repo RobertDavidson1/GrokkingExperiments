@@ -1,19 +1,17 @@
-# To do:
-# Ensure these are passed down and used throughout the codebase
-# Fin
-
-
-
-# Regarding the model
 [model]
-actv_func = "relu"
+actv_func = "relu"          # "relu", "tanh", "sigmoid"
 embed_dim = 128
 hidden_dim = 256
 
-# Regarding dataset / task
+[train]
+epochs = 15_000             # max epochs used trainign the model
+
 [task]
-type = "group"
-name = "Zn"
-n = 64
-split = 0.4
-epochs = 10000
+type = "group"              # task type, either "group" or "operation"
+name = "Zn"                 # name of the task
+n = 64                      # n elements, in the case of symmetric group, this denotes Sn
+split = 0.4                 # proportion of data to use for training
+
+[settings]
+seed = 1337                 # random seed
+print_progess = true        # whether to print progress every couple epochs
