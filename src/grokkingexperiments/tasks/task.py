@@ -3,12 +3,20 @@ from torch.utils.data import random_split
 
 
 class Task:
+    """
+    A class to  abstractly represent what the models training task is
+    """
+
     def __init__(self, config):
         self.multiplication_table = self.calculate_multiplication_table()
         self.split = config.task.split
         self.seed = config.settings.seed
 
     def compose(self, x, y):
+        """
+        Composes two elements, needs to be implemented by children
+        """
+
         raise NotImplementedError
 
     def calculate_multiplication_table(self):
