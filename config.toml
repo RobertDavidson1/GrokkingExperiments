@@ -1,10 +1,10 @@
 # To do:
 # Ensure these are passed down and used throughout the codebase
-# Fin 
+# Fin
 
 
 
-# Regarding the model 
+# Regarding the model
 [model]
 actv_func = "relu"
 embed_dim = 128
@@ -16,7 +16,4 @@ type = "group"
 name = "Zn"
 n = 64
 split = 0.4
-
-# Regarding training 
-[train]
-epochs = 20_000
+epochs = 10000
