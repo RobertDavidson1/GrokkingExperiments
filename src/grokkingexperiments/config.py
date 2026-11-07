@@ -24,6 +24,7 @@ class Config(BaseModel):
     model : ModelConfig
     train : TrainingConfig
     task  : TaskConfig
+    settings : SettingsConfig
 
 def load_config(file_path: str) -> Config:
     with open(file_path, "rb") as f:
