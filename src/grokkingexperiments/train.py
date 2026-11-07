@@ -12,7 +12,10 @@ def calculate_accuracy(logits, true_values):
     return (predictions == true_values).float().mean()
 
 
-def train_model(epochs, model, x_train, y_train, x_test, y_test):
+def train_model(config, model, x_train, y_train, x_test, y_test):
+    epochs = config.train.epochs
+
+
 
     optimizer  = optim.AdamW(model.parameters(), weight_decay=1)
     loss_func = nn.CrossEntropyLoss()
@@ -21,7 +24,7 @@ def train_model(epochs, model, x_train, y_train, x_test, y_test):
     for i in range(epochs):
         model.train()                       # Put the model in training mode
         optimizer.zero_grad()               # Clear the previous training steps gradients
-        logits = model(x_train)             # Preict the entire training dataset 
+        logits = model(x_train)             # Preict the entire training dataset
         loss = loss_func(logits, y_train)   # Calculuate the loss / error of our prediction vs true values
         loss.backward()                     # Calculate the derivatives
         optimizer.step()                    # Update the weights according to the derivatives
@@ -40,10 +43,10 @@ def train_model(epochs, model, x_train, y_train, x_test, y_test):
             model.training_accuracies.append(train_accuracy.item())
             model.test_accuracies.append(test_accuracy.item())
 
+            # Optionally information
+            if config.settings.print_progress:
+              print(f"Epoch {i : < 7} | Loss {loss : <6.3f} | Test loss {test_loss: <6.3f} | Train accuracy {train_accuracy : <6.3f} | Test accuracy {test_accuracy : <6.3f}")
 
-            # Print information
-            print(f"Epoch {i : < 7} | Loss {loss : <6.3f} | Test loss {test_loss: <6.3f} | Train accuracy {train_accuracy : <6.3f} | Test accuracy {test_accuracy : <6.3f}")
-    
             # Stop training when our model achieves 100% accuracy on the test data
             if test_accuracy == 1.0:
                 break
