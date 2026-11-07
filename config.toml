@@ -4,7 +4,7 @@ embed_dim = 128
 hidden_dim = 256
 
 [train]
-n = 10
+n = 97
 op = "mod_n"
 split = 0.4
-epochs = 10000
+epochs = 20000
