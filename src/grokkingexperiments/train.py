@@ -15,8 +15,6 @@ def calculate_accuracy(logits, true_values):
 def train_model(config, model, x_train, y_train, x_test, y_test):
     epochs = config.train.epochs
 
-
-
     optimizer  = optim.AdamW(model.parameters(), weight_decay=1)
     loss_func = nn.CrossEntropyLoss()
 

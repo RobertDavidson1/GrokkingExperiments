@@ -11,8 +11,8 @@ def main(config):
     model = GrokkingModel(config).to(device)
 
     # Create training task and get the splits
-    task = select_task(config.task.type, config.task.name, config.task.n)
-    x_train, y_train, x_test, y_test = task.generate_train_test_data(config.task.split)
+    task = select_task(config)
+    x_train, y_train, x_test, y_test = task.generate_train_test_data()
 
     # Move data to the same device as the model
     x_train = x_train.to(device)
@@ -21,7 +21,7 @@ def main(config):
     y_test = y_test.to(device)
 
     # Train the model, and store the four training metric histories in `metrics`
-    train_model(config.train.epochs, model, x_train, y_train, x_test, y_test)
+    train_model(config, model, x_train, y_train, x_test, y_test)
 
     # Plot model metrics
     model.plot_metrics()
