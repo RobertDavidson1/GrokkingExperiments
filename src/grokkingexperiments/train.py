@@ -13,8 +13,10 @@ def calculate_accuracy(logits, true_values):
 
 
 def train_model(config, model, x_train, y_train, x_test, y_test):
-    epochs = config.train.epochs
+    
 
+    # Init max epochs, optimizer and loss function
+    epochs = config.train.epochs      
     optimizer  = optim.AdamW(model.parameters(), weight_decay=1)
     loss_func = nn.CrossEntropyLoss()
 
@@ -27,7 +29,7 @@ def train_model(config, model, x_train, y_train, x_test, y_test):
         loss.backward()                     # Calculate the derivatives
         optimizer.step()                    # Update the weights according to the derivatives
 
-        if i % 100 == 0:
+        if i % config.settings.progress_interval == 0:
             model.eval()                                                # Put the model in evaluation mode so its doesnt update weights
             with torch.no_grad():                                       # Disable derivative calculation
                 test_logits = model(x_test)                             # Predict the entire test dataset
@@ -43,8 +45,4 @@ def train_model(config, model, x_train, y_train, x_test, y_test):
 
             # Optionally information
             if config.settings.print_progress:
-              print(f"Epoch {i : < 7} | Loss {loss : <6.3f} | Test loss {test_loss: <6.3f} | Train accuracy {train_accuracy : <6.3f} | Test accuracy {test_accuracy : <6.3f}")
-
-            # Stop training when our model achieves 100% accuracy on the test data
-            if test_accuracy == 1.0:
-                break
+                print(f"Epoch {i : < 7} | Loss {loss : <6.3f} | Test loss {test_loss: <6.3f} | Train accuracy {train_accuracy : <6.3f} | Test accuracy {test_accuracy : <6.3f}")
