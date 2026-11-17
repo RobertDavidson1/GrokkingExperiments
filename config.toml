@@ -4,14 +4,17 @@ embed_dim = 128
 hidden_dim = 256
 
 [train]
-epochs = 15_000             # max epochs used trainign the model
+epochs = 250_000             # max epochs used trainign the model
 
-[task]
-type = "group"              # task type, either "group" or "operation"
-name = "Zn"                 # name of the task
-n = 64                      # n elements, in the case of symmetric group, this denotes Sn
-split = 0.4                 # proportion of data to use for training
+[group]
+name = "Zn"
+n = 113
+split = 0.4
 
 [settings]
 seed = 1337                 # random seed
-print_progress = true        # whether to print progress every couple epochs
+print_progress = true       # whether to print progress every couple epochs
+progress_interval = 100     # Print progress every epochs
+
+model_dir = "data/models/"
+model_filename = "custom_model.pt"
