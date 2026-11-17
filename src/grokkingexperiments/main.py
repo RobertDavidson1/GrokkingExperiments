@@ -1,8 +1,8 @@
 import torch
 from grokkingexperiments.model import GrokkingModel
 from grokkingexperiments.train import train_model
-from grokkingexperiments.tasks import select_task
 from grokkingexperiments.config import load_config
+from grokkingexperiments.groups.zn import Zn
 
 
 def main(config):
@@ -11,8 +11,8 @@ def main(config):
     model = GrokkingModel(config).to(device)
 
     # Create training task and get the splits
-    task = select_task(config)
-    x_train, y_train, x_test, y_test = task.generate_train_test_data()
+    group = Zn(config)
+    x_train, y_train, x_test, y_test = group.generate_train_test_data()
 
     # Move data to the same device as the model
     x_train = x_train.to(device)
