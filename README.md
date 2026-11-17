@@ -1,3 +1,8 @@
+### To do:
+[] Run several (20-30) of the same Z_113 experiments fir 25k epochs changing seed each time, plot models train / test accuracy in one plot,  loss  in 0.2 opacity for individual, and the average for each too
+
+![alt text](image.png)
+
 
 ### Getting started
 
